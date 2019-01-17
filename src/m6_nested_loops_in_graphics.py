@@ -3,15 +3,15 @@ This project demonstrates NESTED LOOPS (i.e., loops within loops)
 in the context of TWO-DIMENSIONAL GRAPHICS.
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Jack Wilson.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
 
 def main():
     """ Calls the other functions to demonstrate them. """
-    run_test_draw_L()
+    # run_test_draw_L()
     run_test_draw_wall_on_right()
 
 
@@ -79,8 +79,31 @@ def draw_L(window, circle, r, c):
       :type c: int
     and m and n are small, positive integers.
     """
+    ccx = circle.center.x
+    ccy = circle.center.y
+    r = circle.radius
+    x = ccx
+    y = ccy
+    for i in range(c):
+        for _ in range(3):
+            new_circle = rg.Circle(rg.Point(x, y), r)
+            new_circle.attach_to(window)
+            window.render(0.1)
+            x += 2 * r
+        y += 2 * r
+        x = ccx
+    ccy = y
+    for i in range(r):
+        for _ in range(3):
+            new_circle = rg.Circle(rg.Point(x, y), r)
+            new_circle.attach_to(window)
+            window.render(0.1)
+            y += 2 * r
+        x += 2 * r
+        y = ccy
+
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
 
@@ -120,6 +143,24 @@ def draw_wall_on_right(rectangle, n, window):
       :type window: rg.RoseWindow
     and n is a small, positive integer.
     """
+    bl = rectangle.get_lower_left_corner()
+    ur = rectangle.get_upper_right_corner()
+    w = rectangle.get_width()
+    h = rectangle.get_height()
+    x1 = bl.x
+    x2 = ur.x
+    for i in range(n):
+        for _ in range(i + 1):
+            new_rectangle = rg.Rectangle(bl, ur)
+            new_rectangle.attach_to(window)
+            window.render(0.1)
+            bl.x -= w
+            ur.x -= w
+        bl.y += h
+        ur.y += h
+        bl.x = x1
+        ur.x = x2
+
     # ------------------------------------------------------------------
     # TODO: 3. Implement and test this function.
     #     The testing code is already written for you (above).
